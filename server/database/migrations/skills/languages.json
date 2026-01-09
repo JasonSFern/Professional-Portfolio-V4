@@ -1,0 +1,100 @@
+[
+  {
+    "name": "JavaScript",
+    "icon": "/icons/javascript.svg",
+    "proficiency": 5,
+    "category": "Languages",
+    "is_active": 1
+  },
+  {
+    "name": "TypeScript",
+    "icon": "/icons/typescript.svg",
+    "proficiency": 5,
+    "category": "Languages",
+    "is_active": 1
+  },
+  {
+    "name": "Python",
+    "icon": "/icons/python.svg",
+    "proficiency": 5,
+    "category": "Languages",
+    "is_active": 1
+  },
+  {
+    "name": "Java",
+    "icon": "/icons/java.svg",
+    "proficiency": 5,
+    "category": "Languages",
+    "is_active": 1
+  },
+  {
+    "name": "PHP",
+    "icon": "/icons/php.svg",
+    "proficiency": 5,
+    "category": "Languages",
+    "is_active": 1
+  },
+  {
+    "name": "Ruby",
+    "icon": "/icons/ruby.svg",
+    "proficiency": 5,
+    "category": "Languages",
+    "is_active": 1
+  },
+  {
+    "name": "C",
+    "icon": "/icons/c.svg",
+    "proficiency": 5,
+    "category": "Languages",
+    "is_active": 1
+  },
+  {
+    "name": "C#",
+    "icon": "/icons/csharp.svg",
+    "proficiency": 5,
+    "category": "Languages",
+    "is_active": 1
+  },
+  {
+    "name": "C++",
+    "icon": "/icons/cpp.svg",
+    "proficiency": 5,
+    "category": "Languages",
+    "is_active": 1
+  },
+  {
+    "name": "Go",
+    "icon": "/icons/go.svg",
+    "proficiency": 5,
+    "category": "Languages",
+    "is_active": 1
+  },
+  {
+    "name": "Swift",
+    "icon": "/icons/swift.svg",
+    "proficiency": 5,
+    "category": "Languages",
+    "is_active": 1
+  },
+  {
+    "name": "Rust",
+    "icon": "/icons/rust.svg",
+    "proficiency": 5,
+    "category": "Languages",
+    "is_active": 1
+  },
+  {
+    "name": "Objective C",
+    "icon": "/icons/objective-c.svg",
+    "proficiency": 5,
+    "category": "Languages",
+    "is_active": 1
+  },
+  {
+    "name": "Go",
+    "icon": "/icons/go.svg",
+    "proficiency": 5,
+    "category": "Languages",
+    "is_active": 1
+  }
+]

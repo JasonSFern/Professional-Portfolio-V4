@@ -1,0 +1,108 @@
+import { db } from '../index'
+import { skills, type InsertSkill } from '../schema/Skill'
+
+export const languageSkills: InsertSkill[] = [
+  {
+    name: 'JavaScript',
+    icon: '/icons/javascript.svg',
+    proficiency: 5,
+    category: 'Languages',
+    isActive: 1,
+  },
+  {
+    name: 'TypeScript',
+    icon: '/icons/typescript.svg',
+    proficiency: 5,
+    category: 'Languages',
+    isActive: 1,
+  },
+  {
+    name: 'Python',
+    icon: '/icons/python.svg',
+    proficiency: 5,
+    category: 'Languages',
+    isActive: 1,
+  },
+  {
+    name: 'Java',
+    icon: '/icons/java.svg',
+    proficiency: 5,
+    category: 'Languages',
+    isActive: 1,
+  },
+  {
+    name: 'PHP',
+    icon: '/icons/php.svg',
+    proficiency: 5,
+    category: 'Languages',
+    isActive: 1,
+  },
+  {
+    name: 'Ruby',
+    icon: '/icons/ruby.svg',
+    proficiency: 5,
+    category: 'Languages',
+    isActive: 1,
+  },
+  {
+    name: 'C',
+    icon: '/icons/c.svg',
+    proficiency: 5,
+    category: 'Languages',
+    isActive: 1,
+  },
+  {
+    name: 'C#',
+    icon: '/icons/csharp.svg',
+    proficiency: 5,
+    category: 'Languages',
+    isActive: 1,
+  },
+  {
+    name: 'C++',
+    icon: '/icons/cpp.svg',
+    proficiency: 5,
+    category: 'Languages',
+    isActive: 1,
+  },
+  {
+    name: 'Go',
+    icon: '/icons/go.svg',
+    proficiency: 5,
+    category: 'Languages',
+    isActive: 1,
+  },
+  {
+    name: 'Swift',
+    icon: '/icons/swift.svg',
+    proficiency: 5,
+    category: 'Languages',
+    isActive: 1,
+  },
+  {
+    name: 'Rust',
+    icon: '/icons/rust.svg',
+    proficiency: 5,
+    category: 'Languages',
+    isActive: 1,
+  },
+  {
+    name: 'Objective C',
+    icon: '/icons/objective-c.svg',
+    proficiency: 5,
+    category: 'Languages',
+    isActive: 1,
+  },
+]
+
+export async function seedLanguageSkills() {
+  console.log('🌱 Seeding language skills...')
+  await db.insert(skills).values(languageSkills)
+  console.log('✅ Language skills seeded successfully')
+}
+
+// Run if executed directly
+if (import.meta.url === `file://${process.argv[1]}`) {
+  await seedLanguageSkills()
+  process.exit(0)
+}

@@ -1,0 +1,178 @@
+import { db } from '../index'
+import { skills, type InsertSkill } from '../schema/Skill'
+
+export const toolSkills: InsertSkill[] = [
+  {
+    name: 'Git',
+    icon: '/icons/git.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Docker',
+    icon: '/icons/docker.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'AWS',
+    icon: '/icons/aws.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Azure',
+    icon: '/icons/azure.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Google Cloud',
+    icon: '/icons/gcp.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Kubernetes',
+    icon: '/icons/kubernetes.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Figma',
+    icon: '/icons/figma.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Hootsuite',
+    icon: '/icons/hootsuite.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Balsamiq',
+    icon: '/icons/balsamiq.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Adobe Creative Suite',
+    icon: '/icons/adobe-creative-cloud.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Adobe Illustrator',
+    icon: '/icons/adobe-illustrator.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Adobe Photoshop',
+    icon: '/icons/adobe-photoshop.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Adobe InDesign',
+    icon: '/icons/adobe-indesign.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Adobe Premiere Pro',
+    icon: '/icons/adobe-premiere-pro.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Jest',
+    icon: '/icons/jest.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Cypress',
+    icon: '/icons/cypress.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Webpack',
+    icon: '/icons/webpack.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Vite',
+    icon: '/icons/vite.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'WordPress',
+    icon: '/icons/wordpress.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'WooCommerce',
+    icon: '/icons/woocommerce.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Shopify',
+    icon: '/icons/shopify.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Elementor',
+    icon: '/icons/elementor.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+  {
+    name: 'Stripe',
+    icon: '/icons/stripe.svg',
+    proficiency: 5,
+    category: 'Tools',
+    isActive: 1,
+  },
+]
+
+export async function seedToolSkills() {
+  console.log('🌱 Seeding tool skills...')
+  await db.insert(skills).values(toolSkills)
+  console.log('✅ Tool skills seeded successfully')
+}
+
+// Run if executed directly
+if (import.meta.url === `file://${process.argv[1]}`) {
+  await seedToolSkills()
+  process.exit(0)
+}

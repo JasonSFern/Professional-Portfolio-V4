@@ -9,8 +9,8 @@
         <p class="mt-4">
           I specialize in
           <ColoredText color="primary" bold>Vue.js</ColoredText>,
-          <ColoredText color="success">Node.js</ColoredText>, and
-          <ColoredText color="info">TypeScript</ColoredText>.
+          <ColoredText color="secondary">Node.js</ColoredText>, and
+          <ColoredText color="accent">TypeScript</ColoredText>.
         </p>
       </div>
 

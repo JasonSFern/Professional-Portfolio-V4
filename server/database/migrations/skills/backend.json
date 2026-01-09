@@ -1,0 +1,51 @@
+[
+  {
+    "name": "Node.js",
+    "icon": "/icons/nodejs.svg",
+    "proficiency": 5,
+    "category": "Backend",
+    "is_active": 1
+  },
+  {
+    "name": "Express.js",
+    "icon": "/icons/express.svg",
+    "proficiency": 5,
+    "category": "Backend",
+    "is_active": 1
+  },
+  {
+    "name": "Django",
+    "icon": "/icons/django.svg",
+    "proficiency": 5,
+    "category": "Backend",
+    "is_active": 1
+  },
+  {
+    "name": "Flask",
+    "icon": "/icons/flask.svg",
+    "proficiency": 5,
+    "category": "Backend",
+    "is_active": 1
+  },
+  {
+    "name": "FastAPI",
+    "icon": "/icons/fastapi.svg",
+    "proficiency": 5,
+    "category": "Backend",
+    "is_active": 1
+  },
+  {
+    "name": "Ruby on Rails",
+    "icon": "/icons/rails.svg",
+    "proficiency": 5,
+    "category": "Backend",
+    "is_active": 1
+  },
+  {
+    "name": "Laravel",
+    "icon": "/icons/laravel.svg",
+    "proficiency": 5,
+    "category": "Backend",
+    "is_active": 1
+  }
+]
