@@ -1,0 +1,12 @@
+// Main SCSS entry point
+@use 'variables' as *;
+
+// Add your global styles here
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}

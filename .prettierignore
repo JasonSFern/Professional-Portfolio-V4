@@ -1,0 +1,25 @@
+# Build outputs
+.output
+.nuxt
+.nitro
+dist
+node_modules
+
+# Logs
+*.log
+
+# Coverage
+coverage
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# OS
+.DS_Store

@@ -25,3 +25,10 @@ logs
 
 # Test coverage
 coverage/
+
+# Docker
+docker-compose.override.yml
+
+# Database
+*.db
+*.db-journal
