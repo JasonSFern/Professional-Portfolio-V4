@@ -4,7 +4,7 @@
       <!-- Logo/Brand -->
       <NuxtLink to="/" class="brand-link">
         <div class="brand">
-          <ColoredText color="primary" :weight="800" class="brand-text">Portfolio</ColoredText>
+          <ColoredText color="accent" :weight="800" class="brand-text">Portfolio</ColoredText>
         </div>
       </NuxtLink>
 
@@ -41,10 +41,10 @@
         v-for="item in navItems"
         :key="item.to"
         :to="item.to"
-        @click="drawer = false"
         class="mobile-nav-item"
+        @click="drawer = false"
       >
-        <template v-slot:prepend>
+        <template #prepend>
           <v-icon v-if="item.icon">{{ item.icon }}</v-icon>
         </template>
         <v-list-item-title>{{ item.label }}</v-list-item-title>
@@ -69,7 +69,6 @@ const navItems = [
   { label: 'Home', to: '/', icon: 'mdi-home' },
   { label: 'About', to: '/about', icon: 'mdi-account' },
   { label: 'Projects', to: '/projects', icon: 'mdi-briefcase' },
-  { label: 'Skills', to: '/skills', icon: 'mdi-code-tags' },
   { label: 'Contact', to: '/contact', icon: 'mdi-email' },
 ]
 </script>

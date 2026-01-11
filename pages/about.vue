@@ -76,6 +76,64 @@
         </div>
       </v-card>
 
+      <!-- Skills Section -->
+      <v-card class="mb-8 pa-6">
+        <Title title="Skills & Technologies" size="large" class="mb-4" />
+
+        <div v-if="skillsPending" class="text-center py-8">
+          <v-progress-circular indeterminate color="primary" size="48"></v-progress-circular>
+        </div>
+
+        <div v-else-if="skillsError" class="text-center py-8">
+          <p class="text-error">Failed to load skills</p>
+        </div>
+
+        <div v-else-if="skillsByCategory" class="skills-container">
+          <div
+            v-for="(categorySkills, category) in skillsByCategory"
+            :key="category"
+            class="skill-category mb-6"
+          >
+            <h3 class="text-h6 mb-3">
+              <ColoredText :color="getCategoryColor(category)" :weight="600">
+                {{ category }}
+              </ColoredText>
+            </h3>
+
+            <div class="skills-grid">
+              <v-chip
+                v-for="skill in categorySkills"
+                :key="skill.id"
+                :color="getCategoryColor(category)"
+                variant="tonal"
+                class="skill-chip"
+              >
+                <template v-if="skill.icon" v-slot:prepend>
+                  <v-avatar size="20">
+                    <v-img :src="skill.icon" :alt="skill.name"></v-img>
+                  </v-avatar>
+                </template>
+                {{ skill.name }}
+                <template v-slot:append>
+                  <div class="proficiency-indicator">
+                    <v-icon
+                      v-for="i in 5"
+                      :key="i"
+                      size="x-small"
+                      :color="
+                        i <= skill.proficiency ? getCategoryColor(category) : 'grey-lighten-2'
+                      "
+                    >
+                      mdi-circle
+                    </v-icon>
+                  </div>
+                </template>
+              </v-chip>
+            </div>
+          </div>
+        </div>
+      </v-card>
+
       <!-- Contact Section -->
       <v-card class="pa-6">
         <Title title="Get In Touch" size="large" class="mb-4" />
@@ -94,12 +152,49 @@
 </template>
 
 <script setup lang="ts">
+useSeoMeta({
+  title: 'Portfolio - About',
+  description: 'Professional portfolio showcasing skills, projects, and experience',
+})
+
+import { computed } from 'vue'
+
 // Fetch profile data from API
 const { data: profile, pending, error } = await useFetch('/api/profile')
 
+// Fetch skills data from API
+const { data: skills, pending: skillsPending, error: skillsError } = await useFetch('/api/skills')
+
+// Group skills by category
+const skillsByCategory = computed(() => {
+  if (!skills.value) return {}
+
+  const grouped = {}
+  skills.value.forEach((skill) => {
+    if (!grouped[skill.category]) {
+      grouped[skill.category] = []
+    }
+    grouped[skill.category].push(skill)
+  })
+  return grouped
+})
+
+// Get color for each category
+const getCategoryColor = (category) => {
+  const colorMap = {
+    Frontend: 'primary',
+    Backend: 'secondary',
+    Database: 'accent',
+    Languages: 'success',
+    Tools: 'info',
+    Other: 'warning',
+  }
+  return colorMap[category] || 'primary'
+}
+
 // Helper function to get icon for contact type
 const getContactIcon = (contactType: string) => {
-  const iconMap: Record<string, string> = {
+  const iconMap = {
     email: 'mdi-email',
     phone: 'mdi-phone',
     linkedin: 'mdi-linkedin',
@@ -149,6 +244,37 @@ const getContactIcon = (contactType: string) => {
 .ethos-item {
   h3 {
     margin-bottom: 0.5rem;
+  }
+}
+
+.skills-container {
+  .skill-category {
+    h3 {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .skill-chip {
+    height: auto;
+    padding: 0.75rem 0.5rem;
+
+    .proficiency-indicator {
+      display: flex;
+      gap: 2px;
+      margin-left: 0.5rem;
+    }
   }
 }
 

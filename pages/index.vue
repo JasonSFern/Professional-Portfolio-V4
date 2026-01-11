@@ -1,7 +1,12 @@
 <template>
   <v-container>
     <div class="home-page">
-      <v-card class="mt-4 pa-4">
+      <v-card v-if="profile" class="mt-4 pa-4">
+        <h1 class="mb-4">
+          {{ profile.firstName }}
+          <ColoredText color="accent" :weight="700" :glow="2">{{ profile.lastName }}</ColoredText>
+        </h1>
+
         <MarkdownRenderer :content="fullText" class="mt-2" />
       </v-card>
 
@@ -18,6 +23,9 @@ useSeoMeta({
   title: 'Portfolio - Home',
   description: 'Professional portfolio showcasing skills, projects, and experience',
 })
+
+// Fetch profile data from API
+const { data: profile, pending, error } = await useFetch('/api/profile')
 
 const fullText = `
 # Welcome to my {accent|w800|glow-medium:portfolio!!}
