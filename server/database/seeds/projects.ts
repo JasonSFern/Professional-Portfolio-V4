@@ -8,35 +8,35 @@ export const projectData: InsertProject[] = [
     title: 'Auto E-Shop',
     subtitle: 'Full-Stack Shopping Application',
     contents: [
-      `## {primary|w600:Project Overview:} {accent|w600:Building} {primary|w600:a Modern} {accent|w600:Shopping Experience}
+      `![Screenshot](/images/projects/sample-project/sample-project_main.jpg|top)
 
-      This comprehensive e-commerce platform was built to provide a seamless shopping experience for both customers and administrators. The application features a modern, responsive design with advanced functionality including real-time inventory management, secure payment processing, and detailed analytics.`,
+## {primary|w600:Project Overview:} {accent|w600:Building} {primary|w600:a Modern} {accent|w600:Shopping Experience}
+
+This comprehensive e-commerce platform was built to provide a seamless shopping experience for both customers and administrators. The application features a modern, responsive design with advanced functionality including real-time inventory management, secure payment processing, and detailed analytics.`,
 
       `## {accent|w600:Key Features} {primary|w600:and Functionality}
 
-      - User authentication and authorization system with role-based access control
-      - Product catalog with advanced search, filtering, and sorting capabilities
-      - Shopping cart with persistent storage and checkout flow
-      - Secure payment integration with Stripe for credit card processing
-      - Order management system with real-time status updates
-      - Admin dashboard for inventory management and sales analytics
-      - Responsive design optimized for desktop, tablet, and mobile devices`,
+![Screenshot](/images/projects/sample-project/sample-project_home.jpg|right)
+
+- User authentication and authorization system with role-based access control
+- Product catalog with advanced search, filtering, and sorting capabilities
+- Shopping cart with persistent storage and checkout flow
+- Secure payment integration with Stripe for credit card processing
+- Order management system with real-time status updates
+- Admin dashboard for inventory management and sales analytics
+- Responsive design optimized for desktop, tablet, and mobile devices`,
 
       `## {primary|w600:Technical Implementation}
 
-      The platform was built using a modern tech stack with **React.js** for the frontend, **Node.js** with **Express** for the backend API, and **MongoDB** for data storage. The application implements RESTful API design principles and includes comprehensive error handling and validation.`,
+![Screenshot](/images/projects/sample-project/sample-project_product.jpg|left)
+
+The platform was built using a modern tech stack with **React.js** for the frontend, **Node.js** with **Express** for the backend API, and **MongoDB** for data storage. The application implements RESTful API design principles and includes comprehensive error handling and validation.`,
     ],
     isActive: true,
-    displayTheme: 'modern-blue',
+    displayTheme: 'theatre--dark',
     photos: {
-      background: 'sample-project_bg',
-      titlecard: 'sample-project_main',
-      showcase: [
-        'sample-project_home',
-        'sample-project_product',
-        'sample-project_cart',
-        'sample-project_admin',
-      ],
+      background: '/images/projects/sample-project/sample-project_bg.jpg',
+      titlecard: '/images/projects/sample-project/sample-project_main.jpg',
     },
     skills: {
       icons: ['react', 'nodejs', 'mongodb', 'stripe'],

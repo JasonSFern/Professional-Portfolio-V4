@@ -22,16 +22,19 @@ export const projects = pgTable('projects', {
   displayTheme: varchar('display_theme', { length: 100 }).notNull(),
 
   // Photos as JSONB object
-  photos: jsonb('photos').$type<{
-    background: string
-    titlecard: string
-    showcase: string[]
-  }>().notNull(),
+  photos: jsonb('photos')
+    .$type<{
+      background: string
+      titlecard: string
+    }>()
+    .notNull(),
 
   // Skills as JSONB object with icons array
-  skills: jsonb('skills').$type<{
-    icons: string[]
-  }>().notNull(),
+  skills: jsonb('skills')
+    .$type<{
+      icons: string[]
+    }>()
+    .notNull(),
 
   // Links as JSONB array of link objects
   links: jsonb('links').$type<ProjectLink[]>(),

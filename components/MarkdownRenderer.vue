@@ -25,6 +25,8 @@ const props = defineProps({
 
 /**
  * Custom syntax:
+ *
+ * Colored Text:
  * {color:text} - Renders colored text
  * {primary:Hello} - Primary colored text
  * {secondary|w700:World} - Secondary color with weight 700
@@ -39,7 +41,41 @@ const props = defineProps({
  * - glow-medium: Medium glow effect
  * - glow-high: High glow effect
  * - glow-ultra: Ultra glow effect
+ *
+ * Images with Positioning:
+ * ![alt](url|position) - Image with position
+ * ![My Image](image.jpg|left) - Image floated to left
+ * ![My Image](image.jpg|right) - Image floated to right
+ * ![My Image](image.jpg|top) - Image on top (full width)
+ * ![My Image](image.jpg|bottom) - Image on bottom (full width)
+ * ![My Image](image.jpg) - Default (top position)
+ *
+ * Positions: left, right, top, bottom
+ * On small screens (<768px), all images render as 'top' position
  */
+
+const processImages = (html: string): string => {
+  // Replace images with position info: ![alt](url|position)
+  // The pipe character is URL-encoded as %7C by marked
+  const regex = /<img\s+src="([^"]+)"\s+alt="([^"]*)"\s*\/?>/g
+
+  return html.replace(regex, (match, url, alt) => {
+    // Decode URL-encoded pipe character (%7C = |)
+    const decodedUrl = decodeURIComponent(url)
+
+    // Extract position from URL if it was included
+    const parts = decodedUrl.split('|')
+    const actualUrl = parts[0]
+    const imagePosition = parts[1] || 'top'
+
+    const positionClass = `img-position-${imagePosition}`
+
+    return `<div class="markdown-image-wrapper ${positionClass}">
+      <img src="${actualUrl}" alt="${alt}" class="markdown-image" loading="lazy" />
+    </div>`
+  })
+}
+
 const processColoredText = (html: string): string => {
   // Replace {color:text} syntax with actual HTML/component markup
   const regex = /\{([^:]+):([^}]+)\}/g
@@ -63,6 +99,8 @@ const processColoredText = (html: string): string => {
       }
       // Glow modifiers
       else if (mod === 'glow' || mod.startsWith('glow-')) {
+        classes.push('glow')
+
         // Map glow levels to text-shadow values
         switch (mod) {
           case 'glow':
@@ -137,6 +175,9 @@ const renderedContent = computed(() => {
   )
   html = html.replace(/<ul>/g, '<ul style="list-style-type: disc; list-style-position: inside;">')
 
+  // Process images with positioning
+  html = processImages(html)
+
   // Process custom ColoredText syntax
   html = processColoredText(html)
 
@@ -144,8 +185,8 @@ const renderedContent = computed(() => {
 })
 </script>
 
-<style scoped lang="scss">
-:deep(.markdown-content) {
+<style lang="scss">
+.markdown-content {
   line-height: 1.6;
 
   h1,
@@ -155,9 +196,8 @@ const renderedContent = computed(() => {
   h5,
   h6 {
     margin-top: 1.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     font-weight: 600;
-    line-height: 1.3;
   }
 
   h1 {
@@ -186,12 +226,6 @@ const renderedContent = computed(() => {
 
   p {
     margin-bottom: 1rem;
-  }
-
-  br {
-    display: block;
-    content: '';
-    margin-top: 0.5rem;
   }
 
   ul,
@@ -240,24 +274,89 @@ const renderedContent = computed(() => {
   .colored-text {
     font-weight: 600;
     transition: all 0.3s ease;
+  }
 
-    &.has-glow {
-      &.glow-low {
-        text-shadow: 0 0 10px currentColor;
+  // Image positioning styles
+  .markdown-image-wrapper {
+    margin: 1.5rem 0;
+    display: block;
+
+    .markdown-image {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      display: block;
+    }
+
+    // Top position (default) - full width
+    &.img-position-top {
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+
+    // Bottom position - full width
+    &.img-position-bottom {
+      width: 100%;
+      margin-top: 2rem;
+    }
+
+    // Left position - floated to left on desktop
+    &.img-position-left {
+      @media (min-width: 768px) {
+        float: left !important;
+        width: 45% !important;
+        margin-top: 0px;
+        margin-right: 2rem !important;
+        margin-bottom: 1rem !important;
       }
+    }
 
-      &.glow-medium {
-        text-shadow: 0 0 21px currentColor;
+    // Right position - floated to right on desktop
+    &.img-position-right {
+      @media (min-width: 768px) {
+        float: right !important;
+        width: 45% !important;
+        margin-top: 0px;
+        margin-left: 2rem !important;
+        margin-bottom: 1rem !important;
       }
+    }
 
-      &.glow-high {
-        text-shadow: 0 0 41px currentColor;
-      }
-
-      &.glow-ultra {
-        text-shadow: 0 0 10px currentColor, 0 0 21px currentColor, 0 0 42px currentColor;
+    // On mobile, all images are full width (top position)
+    @media (max-width: 767px) {
+      &.img-position-left,
+      &.img-position-right {
+        float: none !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
       }
     }
   }
+
+  // Clear floats after content
+  p:has(+ .markdown-image-wrapper),
+  .markdown-image-wrapper:has(+ p) {
+    &::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+  }
+
+  .glow {
+    transition: all 0.2s ease;
+    &:hover {
+      filter: brightness(1.2);
+    }
+  }
+}
+
+// Add clearfix after markdown content to handle floats
+.markdown-content::after {
+  content: '';
+  display: table;
+  clear: both;
 }
 </style>

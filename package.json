@@ -13,6 +13,7 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "db:reset": "tsx server/database/reset.ts",
+    "db:refresh": "yarn db:reset && yarn db:push && yarn db:seed",
     "db:seed": "tsx server/database/seeds/index.ts",
     "db:seed:profile": "tsx server/database/seeds/profile.ts",
     "db:seed:projects": "tsx server/database/seeds/projects.ts",

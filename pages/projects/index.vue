@@ -28,8 +28,8 @@
           hover
         >
           <v-img
-            v-if="project.photos?.thumbnail"
-            :src="project.photos.thumbnail"
+            v-if="project.photos?.titlecard"
+            :src="project.photos.titlecard"
             :alt="getProjectTitle(project)"
             height="200"
             cover

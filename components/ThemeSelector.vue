@@ -1,5 +1,5 @@
 <template>
-  <v-card class="theme-selector-card" elevation="2">
+  <v-card class="theme-selector-card" elevation="2" width="466">
     <v-card-title class="text-h6">Theme Selector</v-card-title>
     <v-card-text>
       <v-row>
@@ -30,10 +30,10 @@
               </v-list-item>
             </template>
             <template #selection="{ item }">
-              <v-chip :color="item.raw.color" size="small" class="mr-2">
-                <v-icon start size="small">{{ item.raw.icon }}</v-icon>
-                {{ item.raw.displayName }}
-              </v-chip>
+              <!-- <v-chip :color="item.raw.color" size="small" class="mr-2"> -->
+              <v-icon :color="item.raw.color" start size="small">{{ item.raw.icon }}</v-icon>
+              {{ item.raw.displayName }}
+              <!-- </v-chip> -->
             </template>
           </v-select>
         </v-col>
