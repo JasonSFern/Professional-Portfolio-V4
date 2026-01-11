@@ -2,11 +2,14 @@
 declare module '#app' {
   interface NuxtApp {
     $themes: {
-      customThemes: Record<string, {
-        light: Record<string, string>
-        dark: Record<string, string>
-        icon: string
-      }>
+      customThemes: Record<
+        string,
+        {
+          light: Record<string, string>
+          dark: Record<string, string>
+          icon: string
+        }
+      >
       getThemeData: (themeName: string) => any
       applyCustomTheme: (themeName: string, themeMode?: 'light' | 'dark') => any
       getAvailableThemes: () => Array<{
@@ -22,11 +25,14 @@ declare module '#app' {
 declare module 'vue' {
   interface ComponentCustomProperties {
     $themes: {
-      customThemes: Record<string, {
-        light: Record<string, string>
-        dark: Record<string, string>
-        icon: string
-      }>
+      customThemes: Record<
+        string,
+        {
+          light: Record<string, string>
+          dark: Record<string, string>
+          icon: string
+        }
+      >
       getThemeData: (themeName: string) => any
       applyCustomTheme: (themeName: string, themeMode?: 'light' | 'dark') => any
       getAvailableThemes: () => Array<{
