@@ -30,7 +30,7 @@ export const profiles = pgTable('profiles', {
   pronouns: varchar('pronouns', { length: 50 }).notNull(),
 
   // Motto as JSONB array of objects: [{ class: string, text: string }]
-  motto: jsonb('motto').$type<MottoItem[]>().notNull(),
+  motto: varchar('motto', { length: 200 }).notNull(),
 
   // Location as JSONB object: { city, region, postal_code, country }
   location: jsonb('location').$type<Location>().notNull(),
@@ -39,16 +39,20 @@ export const profiles = pgTable('profiles', {
   bio: jsonb('bio').$type<string[]>().notNull(),
 
   // Services object with intro and content array
-  services: jsonb('services').$type<{
-    intro: string
-    content: ServiceItem[]
-  }>().notNull(),
+  services: jsonb('services')
+    .$type<{
+      intro: string
+      content: ServiceItem[]
+    }>()
+    .notNull(),
 
   // Ethos object with intro and content array
-  ethos: jsonb('ethos').$type<{
-    intro: string
-    content: EthosItem[]
-  }>().notNull(),
+  ethos: jsonb('ethos')
+    .$type<{
+      intro: string
+      content: EthosItem[]
+    }>()
+    .notNull(),
 
   // Contact as JSONB object (key-value map)
   // Structure: { email: { link: string, label: string }, phone: { ... }, etc. }

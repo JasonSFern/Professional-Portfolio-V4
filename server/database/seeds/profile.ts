@@ -1,17 +1,13 @@
+import { Node } from 'postcss'
 import { db } from '../index'
-import { profiles, type InsertProfile } from '../schema/Profile'
+import { profiles, type InsertProfile } from '../schema/profile'
 
 export const profileData: InsertProfile = {
   firstName: 'Alex',
   lastName: 'Johnson',
   pronouns: 'they/them',
   title: 'Full Stack Developer',
-  motto: [
-    { class: 'tagsec1', text: 'Building' },
-    { class: 'secondary-color-c secondary-color-c-glow tagsec2', text: 'innovative solutions' },
-    { class: 'accent-color-c accent-color-c-glow tagsec2', text: 'with' },
-    { class: 'secondary-color-c secondary-color-c-glow tagsec2', text: 'modern technologies' },
-  ],
+  motto: `I am a {secondary|glow:full-stack developer} with expertise in {secondary|bold:Vue.js}, {accent:TypeScript}, and {primary:Node.js}.`,
   location: {
     city: 'Toronto',
     region: 'Ontario',
@@ -19,85 +15,94 @@ export const profileData: InsertProfile = {
     country: 'Canada',
   },
   bio: [
-    "I'm a passionate full-stack developer with 4+ years of experience creating innovative web applications and user-centered designs. My journey in tech started with a curiosity for how things work, which led me to pursue both development and design to create holistic digital experiences.",
-    'I specialize in modern JavaScript frameworks, particularly React and Vue.js, with a strong foundation in Node.js backend development. My design background helps me bridge the gap between technical implementation and user experience, ensuring that every project I work on is both functional and delightful to use.',
-    "When I'm not coding, you can find me exploring local coffee shops, contributing to open source projects, or experimenting with new technologies. I believe in continuous learning and love sharing knowledge with the developer community through blog posts and mentoring.",
+    `I'm a passionate **full-stack developer** with **4+ years of experience** creating innovative web applications and user-centered designs. My journey in tech started with a curiosity for how things work, which led me to pursue both development and design to create holistic digital experiences.`,
+    `I specialize in modern JavaScript frameworks, particularly **React** and **Vue.js**, with a strong foundation in **Node.js** backend development. My design background helps me bridge the gap between technical implementation and user experience, ensuring that every project I work on is both *functional* and *delightful* to use.`,
+    `When I'm not coding, you can find me:
+- Exploring local coffee shops ☕
+- Contributing to open source projects 💻
+- Experimenting with new technologies 🚀
+
+I believe in continuous learning and love sharing knowledge with the developer community through blog posts and mentoring.`,
   ],
   services: {
     intro:
-      'I offer comprehensive digital solutions that combine technical expertise with design thinking to create exceptional user experiences.',
+      'I offer **comprehensive digital solutions** that combine technical expertise with design thinking to create exceptional user experiences.',
     content: [
       {
         title: 'Web Application Development',
         description: [
-          'Custom web applications built with modern frameworks like React, Vue.js, and Next.js',
-          'RESTful API development using Node.js, Express, and various databases',
-          'Progressive Web Apps (PWAs) for enhanced mobile experiences',
-          'Performance optimization and scalability planning',
+          `- Custom web applications built with modern frameworks like **React**, **Vue.js**, and **Next.js**
+- RESTful API development using **Node.js**, **Express**, and various databases
+- Progressive Web Apps (PWAs) for enhanced mobile experiences
+- Performance optimization and scalability planning`,
         ],
       },
       {
         title: 'User Experience Design',
         description: [
-          'User research and persona development to understand target audiences',
-          'Wireframing and prototyping using Figma and Adobe Creative Suite',
-          'Responsive design systems that work across all devices',
-          'Accessibility-first design ensuring inclusive user experiences',
+          `- User research and persona development to understand target audiences
+- Wireframing and prototyping using **Figma** and **Adobe Creative Suite**
+- Responsive design systems that work across all devices
+- Accessibility-first design ensuring *inclusive* user experiences`,
         ],
       },
       {
         title: 'E-commerce Solutions',
         description: [
-          'Custom e-commerce platforms with secure payment processing',
-          'Shopify and WooCommerce store development and customization',
-          'Inventory management and order processing systems',
-          'SEO optimization and performance analytics integration',
+          `- Custom e-commerce platforms with **secure payment processing**
+- **Shopify** and **WooCommerce** store development and customization
+- Inventory management and order processing systems
+- SEO optimization and performance analytics integration`,
         ],
       },
       {
         title: 'Technical Consulting',
         description: [
-          'Technology stack recommendations based on project requirements',
-          'Code reviews and architecture assessments',
-          'Team training and development process optimization',
-          'Project management and agile methodology implementation',
+          `- Technology stack recommendations based on project requirements
+- Code reviews and architecture assessments
+- Team training and development process optimization
+- Project management and **agile methodology** implementation`,
         ],
       },
     ],
   },
   ethos: {
     intro:
-      'My approach to development and design is guided by core principles that shape every project I undertake.',
+      'My approach to development and design is guided by **core principles** that shape every project I undertake.',
     content: [
       {
         title: 'User-Centered Approach',
-        tagline: 'People First, Technology Second',
-        description:
-          "Every decision I make starts with understanding the user's needs, goals, and pain points to create truly meaningful solutions.",
+        tagline: '**People First, Technology Second**',
+        description: `Every decision I make starts with understanding the user's *needs*, *goals*, and *pain points* to create truly meaningful solutions.`,
       },
       {
         title: 'Clean & Maintainable Code',
-        tagline: 'Code That Tells a Story',
-        description:
-          'I write code that is not only functional but also readable, well-documented, and easy for future developers to understand and extend.',
+        tagline: '**Code That Tells a Story**',
+        description: `I write code that is not only functional but also:
+- **Readable** and self-documenting
+- **Well-tested** with comprehensive coverage
+- Easy for future developers to understand and extend`,
       },
       {
         title: 'Continuous Learning',
-        tagline: 'Growth Through Curiosity',
-        description:
-          'Technology evolves rapidly, and I stay current with the latest trends, tools, and best practices to deliver cutting-edge solutions.',
+        tagline: '**Growth Through Curiosity** 🚀',
+        description: `Technology evolves rapidly, and I stay current with the latest:
+- Trends and best practices
+- Tools and frameworks
+- Design patterns and architectures`,
       },
       {
         title: 'Collaborative Partnership',
-        tagline: 'Together We Build Better',
-        description:
-          'I believe the best results come from close collaboration with clients, understanding their vision, and working together to exceed expectations.',
+        tagline: '**Together We Build Better** 🤝',
+        description: `I believe the best results come from close collaboration with clients, understanding their vision, and working together to exceed expectations.`,
       },
       {
         title: 'Quality & Performance',
-        tagline: 'Excellence in Every Detail',
-        description:
-          "I'm committed to delivering high-quality work that performs excellently across all devices and provides a seamless user experience.",
+        tagline: '**Excellence in Every Detail** ✨',
+        description: `I'm committed to delivering high-quality work that:
+- Performs excellently across all devices
+- Provides a seamless user experience
+- Meets accessibility standards`,
       },
     ],
   },

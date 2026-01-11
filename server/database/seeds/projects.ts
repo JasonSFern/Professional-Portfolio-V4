@@ -1,5 +1,5 @@
 import { db } from '../index'
-import { projects, type InsertProject } from '../schema/Project'
+import { projects, type InsertProject } from '../schema/project'
 
 export const projectData: InsertProject[] = [
   {

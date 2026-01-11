@@ -1,5 +1,5 @@
 import { db } from '../index'
-import { skills, type InsertSkill } from '../schema/Skill'
+import { skills, type InsertSkill } from '../schema/skill'
 
 export const databaseSkills: InsertSkill[] = [
   {
