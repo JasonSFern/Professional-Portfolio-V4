@@ -34,6 +34,7 @@
     "@tresjs/core": "^5.2.1",
     "drizzle-orm": "^0.45.1",
     "gsap": "^3.14.2",
+    "marked": "^17.0.1",
     "nuxt": "^4.2.2",
     "postgres": "^3.4.8",
     "three": "^0.182.0",

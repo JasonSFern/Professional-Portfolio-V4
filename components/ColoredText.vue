@@ -1,8 +1,7 @@
 <template>
   <span
-    :style="{ color: themeColor }"
+    :style="{ color: themeColor, textShadow: glowEffect, fontWeight: weight }"
     :class="{
-      'font-weight-bold': bold,
       'text-decoration-underline': underline,
     }"
   >
@@ -14,31 +13,39 @@
 import { computed } from 'vue'
 import { useTheme } from 'vuetify'
 
-const props = defineProps({
-  /**
-   * Color from Vuetify theme
-   * Options: 'primary', 'secondary', 'accent', 'error', 'info', 'success', 'warning'
-   * Or any custom color from your Vuetify theme
-   */
-  color: {
-    type: String,
-    default: 'primary',
-  },
-  /**
-   * Make text bold
-   */
-  bold: {
-    type: Boolean,
-    default: false,
-  },
-  /**
-   * Underline text
-   */
-  underline: {
-    type: Boolean,
-    default: false,
-  },
-})
+/// Helpers
+import { hexToRgba } from '@/helpers/general'
+
+// Interfaces
+import { GlowLevel } from '@/types/general'
+const props = withDefaults(
+  defineProps<{
+    /**
+     * Color from Vuetify theme
+     * Options: 'primary', 'secondary', 'accent', 'error', 'info', 'success', 'warning'
+     * Or any custom color from your Vuetify theme
+     */
+    color: string
+    /**
+     * Make text bold
+     */
+    weight?: Number
+    /**
+     * Underline text
+     */
+    underline?: boolean
+    /**
+     * Glow effect
+     */
+    glow?: GlowLevel | undefined
+  }>(),
+  {
+    color: 'primary',
+    bold: false,
+    underline: false,
+    glow: undefined,
+  }
+)
 
 // Access Vuetify theme to get actual color values
 const theme = useTheme()
@@ -46,6 +53,28 @@ const theme = useTheme()
 // Get the color from the current theme
 const themeColor = computed(() => {
   return theme.current.value.colors[props.color] || props.color
+})
+
+// Get the glow affect for the current theme
+const glowEffect = computed(() => {
+  if (!props.glow) return ''
+
+  // The theme color needs to be converted from hash color to rgb value for this to work
+  switch (props.glow) {
+    case GlowLevel.Low:
+      return `0 0 10px ${hexToRgba(theme.current.value.colors[props.color] || props.color)}`
+    case GlowLevel.Medium:
+      return `0 0 21px ${hexToRgba(theme.current.value.colors[props.color] || props.color)}`
+    case GlowLevel.High:
+      return `0 0 41px ${hexToRgba(theme.current.value.colors[props.color] || props.color)}`
+    case GlowLevel.Ultra:
+      return `0 0 10px ${hexToRgba(theme.current.value.colors[props.color] || props.color)},
+      0 0 21px ${hexToRgba(
+        theme.current.value.colors[props.color] || props.color
+      )}, 0 0 42px ${hexToRgba(theme.current.value.colors[props.color] || props.color)}`
+    default:
+      return ''
+  }
 })
 
 // // Use Vuetify's text color utility classes

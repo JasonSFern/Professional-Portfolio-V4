@@ -1,18 +1,9 @@
 <template>
   <v-container>
     <div class="home-page">
-      <Title title="Welcome to My Portfolio" size="xlarge" gradient animated />
-
-      <div class="mt-8">
-        <Title title="About Me" size="large" />
-
-        <p class="mt-4">
-          I specialize in
-          <ColoredText color="primary" bold>Vue.js</ColoredText>,
-          <ColoredText color="secondary">Node.js</ColoredText>, and
-          <ColoredText color="accent">TypeScript</ColoredText>.
-        </p>
-      </div>
+      <v-card class="mt-4 pa-4">
+        <MarkdownRenderer :content="fullText" class="mt-2" />
+      </v-card>
 
       <div class="mt-8">
         <Title title="Theme Controls" size="medium" />
@@ -23,7 +14,38 @@
 </template>
 
 <script setup lang="ts">
-// Theme switching is now handled by the ThemeSelector component
+useSeoMeta({
+  title: 'Portfolio - Home',
+  description: 'Professional portfolio showcasing skills, projects, and experience',
+})
+
+const fullText = `
+# Welcome to my {accent|w800|glow-medium:portfolio!!}
+
+## This is my portfolio!
+### The headers are getting smaller!
+#### And smaller...!
+##### And smaller!
+###### And I think that is it!
+
+I'm a passionate **full-stack developer** with expertise in:
+
+1. First item
+2. Second item
+3. Third item
+4. Fourth item
+
+- **Frontend**: React, Vue.js, Nuxt.js
+- **Backend**: Node.js, Express, Django
+- ***Database***: PostgreSQL, MongoDB
+
+My favorite search engine is [Duck Duck Go](https://duckduckgo.com).
+
+<https://www.markdownguide.org>   
+<fake@example.com>
+
+> "Code is *like* \`humor\`. When you have to explain it, it's bad." - Cory House
+`
 </script>
 
 <style scoped lang="scss">
