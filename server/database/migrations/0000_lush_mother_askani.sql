@@ -4,7 +4,7 @@ CREATE TABLE "profiles" (
 	"last_name" varchar(100) NOT NULL,
 	"title" varchar(200) NOT NULL,
 	"pronouns" varchar(50) NOT NULL,
-	"motto" jsonb NOT NULL,
+	"motto" varchar(200) NOT NULL,
 	"location" jsonb NOT NULL,
 	"bio" jsonb NOT NULL,
 	"services" jsonb NOT NULL,

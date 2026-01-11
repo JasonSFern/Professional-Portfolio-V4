@@ -89,6 +89,11 @@ const processColoredText = (html: string): string => {
 }
 
 const renderedContent = computed(() => {
+  // Handle empty or undefined content
+  if (!props.content) {
+    return ''
+  }
+
   // Configure marked options for proper line break handling
   marked.setOptions({
     breaks: true, // Treat single line breaks as <br>
