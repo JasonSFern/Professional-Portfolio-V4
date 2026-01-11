@@ -28,6 +28,7 @@ const fullText = `
 ##### And smaller!
 ###### And I think that is it!
 
+
 I'm a passionate **full-stack developer** with expertise in:
 
 1. First item

@@ -53,7 +53,7 @@ const processColoredText = (html: string): string => {
 
     modifiers.forEach((mod) => {
       // Font weight modifier (e.g., w700, w800)
-      if (mod.startsWith('weight')) {
+      if (mod.startsWith('w') && /^w\d+$/.test(mod)) {
         const weight = mod.substring(1)
         styles.push(`font-weight: ${weight}`)
       }
@@ -67,21 +67,17 @@ const processColoredText = (html: string): string => {
         switch (mod) {
           case 'glow':
           case 'glow-low':
-            classes.push('glow-low')
             styles.push(`text-shadow: 0 0 10px rgb(var(--v-theme-${color}))`)
             break
           case 'glow-medium':
-            classes.push('glow-medium')
             styles.push(`text-shadow: 0 0 21px rgb(var(--v-theme-${color}))`)
             break
           case 'glow-high':
-            classes.push('glow-high')
             styles.push(`text-shadow: 0 0 41px rgb(var(--v-theme-${color}))`)
             break
           case 'glow-ultra':
             styles.push(`text-shadow: 0 0 10px rgb(var(--v-theme-${color})),
             0 0 21px rgb(var(--v-theme-${color})), 0 0 42px rgb(var(--v-theme-${color}))`)
-            classes.push('glow-ultra')
             break
         }
       }
@@ -93,10 +89,48 @@ const processColoredText = (html: string): string => {
 }
 
 const renderedContent = computed(() => {
+  // Configure marked options for proper line break handling
+  marked.setOptions({
+    breaks: true, // Treat single line breaks as <br>
+    gfm: true, // GitHub Flavored Markdown
+  })
+
+  let content = props.content
+
+  // Preprocess: Replace sequences of 3+ newlines with a placeholder that includes count
+  // This preserves the spacing information before markdown processes it
+  const spacingPlaceholders: string[] = []
+  content = content.replace(/\n{3,}/g, (match) => {
+    const blankLineCount = match.length - 1
+    const placeholder = `XSPACINGMARKERX${spacingPlaceholders.length}XSPACINGMARKERX`
+    spacingPlaceholders.push('<br>'.repeat(blankLineCount - 1)) // -1 because markdown already adds one paragraph break
+    return '\n\n' + placeholder + '\n\n'
+  })
+
   // Convert markdown to HTML
   let html = props.inline
-    ? (marked.parseInline(props.content) as string)
-    : (marked.parse(props.content) as string)
+    ? (marked.parseInline(content) as string)
+    : (marked.parse(content) as string)
+
+  // Post-process: Replace placeholders with actual <br> tags
+  spacingPlaceholders.forEach((spacing, index) => {
+    const placeholder = `XSPACINGMARKERX${index}XSPACINGMARKERX`
+    // Handle various ways markdown might have wrapped the placeholder
+    html = html.replace(new RegExp(`<p>${placeholder}</p>\\s*`, 'g'), spacing)
+    html = html.replace(new RegExp(`<p>${placeholder}</p>`, 'g'), spacing)
+    html = html.replace(new RegExp(placeholder, 'g'), spacing)
+  })
+
+  // Clean up any extra whitespace around the spacing elements
+  html = html.replace(/(<br>)\s+(<br>)/g, '$1$2')
+
+  // Add list-style classes to lists to override Tailwind's reset
+  // Tailwind removes list styles by default, so we need to add them back
+  html = html.replace(
+    /<ol>/g,
+    '<ol style="list-style-type: decimal; list-style-position: inside;">'
+  )
+  html = html.replace(/<ul>/g, '<ul style="list-style-type: disc; list-style-position: inside;">')
 
   // Process custom ColoredText syntax
   html = processColoredText(html)
@@ -116,12 +150,43 @@ const renderedContent = computed(() => {
   h5,
   h6 {
     margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     font-weight: 600;
+    line-height: 1.3;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.75em;
+  }
+
+  h3 {
+    font-size: 1.5em;
+  }
+
+  h4 {
+    font-size: 1.25em;
+  }
+
+  h5 {
+    font-size: 1.1em;
+  }
+
+  h6 {
+    font-size: 1em;
   }
 
   p {
     margin-bottom: 1rem;
+  }
+
+  br {
+    display: block;
+    content: '';
+    margin-top: 0.5rem;
   }
 
   ul,
