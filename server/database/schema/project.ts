@@ -1,11 +1,6 @@
 import { pgTable, serial, varchar, jsonb, boolean, timestamp } from 'drizzle-orm/pg-core'
 
 // Define types for complex JSONB fields
-export type ProjectContent = {
-  type: string
-  content: any // Mixed type in original schema
-}
-
 export type ProjectLink = {
   type: string
   label?: string
@@ -20,8 +15,8 @@ export const projects = pgTable('projects', {
   title: varchar('title', { length: 200 }).notNull(),
   subtitle: varchar('subtitle', { length: 300 }).notNull(),
 
-  // Contents as JSONB array of objects with type and mixed content
-  contents: jsonb('contents').$type<ProjectContent[]>().notNull(),
+  // Contents as JSONB array of markdown strings
+  contents: jsonb('contents').$type<string[]>().notNull(),
 
   isActive: boolean('is_active').notNull().default(true),
   displayTheme: varchar('display_theme', { length: 100 }).notNull(),

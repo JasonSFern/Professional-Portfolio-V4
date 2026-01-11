@@ -8,48 +8,23 @@ export const projectData: InsertProject[] = [
     title: 'Auto E-Shop',
     subtitle: 'Full-Stack Shopping Application',
     contents: [
-      {
-        type: 'header',
-        content: [
-          { class: 'primary-color-c', text: 'Project Overview:' },
-          { class: 'accent-color-c', text: 'Building' },
-          { class: 'primary-color-c', text: 'a Modern' },
-          { class: 'accent-color-c', text: 'Shopping Experience' },
-        ],
-      },
-      {
-        type: 'paragraph',
-        content:
-          'This comprehensive e-commerce platform was built to provide a seamless shopping experience for both customers and administrators. The application features a modern, responsive design with advanced functionality including real-time inventory management, secure payment processing, and detailed analytics.',
-      },
-      {
-        type: 'header',
-        content: [
-          { class: 'accent-color-c', text: 'Key Features' },
-          { class: 'primary-color-c', text: 'and Functionality' },
-        ],
-      },
-      {
-        type: 'bullet',
-        content: [
-          'User authentication and authorization system with role-based access control',
-          'Product catalog with advanced search, filtering, and sorting capabilities',
-          'Shopping cart with persistent storage and checkout flow',
-          'Secure payment integration with Stripe for credit card processing',
-          'Order management system with real-time status updates',
-          'Admin dashboard for inventory management and sales analytics',
-          'Responsive design optimized for desktop, tablet, and mobile devices',
-        ],
-      },
-      {
-        type: 'header',
-        content: [{ class: 'primary-color-c', text: 'Technical Implementation' }],
-      },
-      {
-        type: 'paragraph',
-        content:
-          'The platform was built using a modern tech stack with React.js for the frontend, Node.js with Express for the backend API, and MongoDB for data storage. The application implements RESTful API design principles and includes comprehensive error handling and validation.',
-      },
+      `## {primary|w600:Project Overview:} {accent|w600:Building} {primary|w600:a Modern} {accent|w600:Shopping Experience}
+
+      This comprehensive e-commerce platform was built to provide a seamless shopping experience for both customers and administrators. The application features a modern, responsive design with advanced functionality including real-time inventory management, secure payment processing, and detailed analytics.`,
+
+      `## {accent|w600:Key Features} {primary|w600:and Functionality}
+
+      - User authentication and authorization system with role-based access control
+      - Product catalog with advanced search, filtering, and sorting capabilities
+      - Shopping cart with persistent storage and checkout flow
+      - Secure payment integration with Stripe for credit card processing
+      - Order management system with real-time status updates
+      - Admin dashboard for inventory management and sales analytics
+      - Responsive design optimized for desktop, tablet, and mobile devices`,
+
+      `## {primary|w600:Technical Implementation}
+
+      The platform was built using a modern tech stack with **React.js** for the frontend, **Node.js** with **Express** for the backend API, and **MongoDB** for data storage. The application implements RESTful API design principles and includes comprehensive error handling and validation.`,
     ],
     isActive: true,
     displayTheme: 'modern-blue',
