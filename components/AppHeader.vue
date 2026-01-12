@@ -3,10 +3,10 @@
     <div class="d-flex w-100 align-center header-panel frosted rounded-lg px-3">
       <!-- Logo/Brand -->
       <NuxtLink to="/" class="brand-link">
-        <div class="brand">
+        <div v-if="profile" class="brand">
           <p class="desktop-nav d-none d-md-flex">
             <ColoredText color="primary" :weight="400" class="brand-text uppercase"
-              >Jason
+              >{{ profile.firstName }}&nbsp;
             </ColoredText>
           </p>
           <p class="desktop-nav d-none d-md-flex">
@@ -15,7 +15,7 @@
               :weight="400"
               class="brand-text uppercase"
               :glow="GlowLevel.Medium"
-              >Fernandes</ColoredText
+              >{{ profile.lastName }}</ColoredText
             >
           </p>
           <v-img
@@ -98,16 +98,18 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+// Use profile composable to access global profile data
+const { profile, loading: pending, error } = useProfile()
+
 import { GlowLevel } from '@/types/general'
 
 const drawer = ref(false)
 const themeModalOpen = ref(false)
 
 const navItems = [
-  { label: 'Home', to: '/', icon: 'mdi-home' },
+  // { label: 'Home', to: '/', icon: 'mdi-home' },
   { label: 'About', to: '/about', icon: 'mdi-account' },
   { label: 'Projects', to: '/projects', icon: 'mdi-briefcase' },
-  { label: 'Contact', to: '/contact', icon: 'mdi-email' },
 ]
 
 const openThemeModal = () => {

@@ -159,10 +159,10 @@ useSeoMeta({
 
 import { computed } from 'vue'
 
-// Fetch profile data from API
-const { data: profile, pending, error } = await useFetch('/api/profile')
+// Use profile composable to access global profile data
+const { profile, loading: pending, error } = useProfile()
 
-// Fetch skills data from API
+// Fetch skills data from API (keeping this as direct fetch for now)
 const { data: skills, pending: skillsPending, error: skillsError } = await useFetch('/api/skills')
 
 // Group skills by category

@@ -19,8 +19,8 @@ useSeoMeta({
   description: 'Professional portfolio showcasing skills, projects, and experience',
 })
 
-// Fetch profile data from API
-const { data: profile, pending, error } = await useFetch('/api/profile')
+// Use profile composable to access global profile data
+const { profile } = useProfile()
 
 const fullText = `
 # Welcome to my {accent|w800|glow-medium:portfolio!!}
