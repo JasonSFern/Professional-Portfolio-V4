@@ -83,7 +83,7 @@ const theme = useTheme()
 // Get available themes from shared config
 const availableThemes = getAvailableThemes()
 
-const selectedTheme = ref('cloud')
+const selectedTheme = ref<string>('cloud')
 const themeMode = ref<'light' | 'dark'>('dark')
 
 // Two-way binding for the dialog

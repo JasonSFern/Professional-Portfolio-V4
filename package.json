@@ -32,6 +32,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@nuxtjs/color-mode": "^4.0.0",
     "@tresjs/cientos": "^5.2.1",
     "@tresjs/core": "^5.2.1",
     "drizzle-orm": "^0.45.1",

@@ -7,6 +7,11 @@ export default defineNuxtConfig({
 
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
+    head: {
+      htmlAttrs: {
+        style: 'background-color: #121212;', // Prevent white flash on dark theme
+      },
+    },
   },
 
   modules: ['vuetify-nuxt-module'],
@@ -14,8 +19,11 @@ export default defineNuxtConfig({
   vuetify: {
     moduleOptions: {
       /* module specific options */
+      ssrClientHints: {
+        reloadOnFirstRequest: false,
+      },
     },
-    vuetifyOptions: './vuetify.config.ts'
+    vuetifyOptions: './vuetify.config.ts',
   },
 
   css: ['~/assets/css/tailwind.css', '~/assets/scss/main.scss'],
