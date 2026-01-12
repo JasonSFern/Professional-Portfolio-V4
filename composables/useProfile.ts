@@ -14,13 +14,16 @@ export const useProfile = () => {
   const store = useProfileStore()
 
   // Fetch profile data on first use (using callOnce to ensure it only runs once)
-  callOnce('profile:fetch', async () => {
-    if (!store.hasProfile && !store.loading) {
-      await store.fetchProfile().catch((err) => {
+  // Only fetch if we don't have data yet
+  if (!store.hasProfile && !store.loading) {
+    callOnce('profile:fetch', async () => {
+      try {
+        await store.fetchProfile()
+      } catch (err) {
         console.error('Failed to fetch profile:', err)
-      })
-    }
-  })
+      }
+    })
+  }
 
   return {
     // Profile data

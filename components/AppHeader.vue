@@ -4,7 +4,8 @@
       <!-- Logo/Brand -->
       <NuxtLink to="/" class="brand-link">
         <div class="brand">
-          <p class="desktop-nav d-none d-md-flex">
+          <!-- TODO: Possibly keep this? -->
+          <!-- <p class="desktop-nav d-none d-md-flex">
             <ColoredText color="primary" :weight="400" class="brand-text uppercase"
               >{{ profile.firstName }}&nbsp;
             </ColoredText>
@@ -17,7 +18,7 @@
               :glow="GlowLevel.Medium"
               >{{ profile.lastName }}</ColoredText
             >
-          </p>
+          </p> -->
           <LogoIcon :size="40" color="primary" class="mx-md-4 logo-with-glow" />
         </div>
       </NuxtLink>
@@ -40,10 +41,10 @@
 
       <v-btn
         variant="text"
-        color="primary"
+        color="secondary"
         size="small"
         append-icon="mdi-file-document"
-        class="primary-color-c-glow mr-4"
+        class="secondary-color-c-glow mr-4"
       >
         RESUME
       </v-btn>
@@ -100,6 +101,8 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { useThemeSwitch } from '#imports'
 const { switchTheme } = useThemeSwitch()
 
 // // Use profile composable to access global profile data
