@@ -24,13 +24,13 @@ export const useThemeMode = () => {
       document.documentElement.setAttribute('data-theme', mode)
     }
 
-    theme.global.name.value = `${DEFAULT_THEME}--${mode}`
+    theme.change(`${DEFAULT_THEME}--${mode}`)
   }
 
   // Initialize theme immediately (not in onMounted to prevent FOUC)
   const storedMode = themeCookie.value
   currentMode.value = storedMode
-  theme.global.name.value = `${DEFAULT_THEME}--${storedMode}`
+  theme.change(`${DEFAULT_THEME}--${storedMode}`)
 
   // Set data-theme attribute on client
   if (import.meta.client) {

@@ -3,7 +3,7 @@
     <div class="d-flex w-100 align-center header-panel frosted rounded-lg px-3">
       <!-- Logo/Brand -->
       <NuxtLink to="/" class="brand-link">
-        <div v-if="profile" class="brand">
+        <div class="brand">
           <p class="desktop-nav d-none d-md-flex">
             <ColoredText color="primary" :weight="400" class="brand-text uppercase"
               >{{ profile.firstName }}&nbsp;
@@ -18,14 +18,7 @@
               >{{ profile.lastName }}</ColoredText
             >
           </p>
-          <v-img
-            src="/logo.svg"
-            alt="logo"
-            contain
-            max-width="40"
-            max-height="40"
-            class="w-[30px] h-[30px] mx-md-4"
-          ></v-img>
+          <LogoIcon :size="40" color="primary" class="mx-md-4 logo-with-glow" />
         </div>
       </NuxtLink>
 
@@ -44,6 +37,16 @@
       </nav>
 
       <v-spacer></v-spacer>
+
+      <v-btn
+        variant="text"
+        color="primary"
+        size="small"
+        append-icon="mdi-file-document"
+        class="primary-color-c-glow mr-4"
+      >
+        RESUME
+      </v-btn>
 
       <ThemeModeToggle size="compact" />
 
@@ -99,14 +102,15 @@
 import { ref, watch } from 'vue'
 const { switchTheme } = useThemeSwitch()
 
-// Use profile composable to access global profile data
-const { profile, loading: pending, error } = useProfile()
+// // Use profile composable to access global profile data
+// const { profile, loading: pending, error } = useProfile()
 
-import { GlowLevel } from '@/types/general'
+// import { GlowLevel } from '@/types/general'
 
 const route = useRoute()
-const drawer = ref(false)
-const themeModalOpen = ref(false)
+const drawer = ref<boolean>(false)
+const themeModalOpen = ref<boolean>(false)
+const themeMode = ref<'light' | 'dark'>('dark')
 
 const navItems = [
   // { label: 'Home', to: '/', icon: 'mdi-home' },
@@ -118,6 +122,31 @@ const openThemeModal = () => {
   drawer.value = false
   themeModalOpen.value = true
 }
+
+// TODO: Elevation calculation based on route "validation"
+const elevation = 4
+// const elevation = computed(() => {
+//   if (validateRoute()) {
+//     return 4;
+//   } else {
+//     return 0;
+//   }
+// });
+// const validateRoute = () => {
+//   if (mobileDevice.value || specialBrowser.value) {
+//     if (route.name !== "index") {
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   } else {
+//     if (route.name !== "index" && route.name !== "projects") {
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   }
+// };
 
 // TODO: For debugging
 // // Log current page when route changes
@@ -179,7 +208,26 @@ watch(
   align-items: center;
 }
 
-//
+.logo-with-glow {
+  filter: drop-shadow(0 0 10px rgb(var(--v-theme-primary)))
+    drop-shadow(0 0 20px rgb(var(--v-theme-accent)));
+
+  // Or for a pulsing effect:
+  animation: logo-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes logo-glow {
+  from {
+    filter: drop-shadow(0 0 5px rgb(var(--v-theme-primary)))
+      drop-shadow(0 0 10px rgb(var(--v-theme-accent)));
+  }
+  to {
+    filter: drop-shadow(0 0 15px rgb(var(--v-theme-primary)))
+      drop-shadow(0 0 25px rgb(var(--v-theme-accent)));
+  }
+}
+
+// TODO: verify styles
 //
 //
 .brand-link {
@@ -195,6 +243,32 @@ watch(
   .brand-text {
     font-size: 1.5rem;
     letter-spacing: -0.5px;
+  }
+
+  .logo-with-glow {
+    display: block;
+    filter: drop-shadow(0 0 8px rgba(var(--v-theme-primary), 0.6))
+      drop-shadow(0 0 15px rgba(var(--v-theme-accent), 0.4));
+    animation: logo-glow-pulse 3s ease-in-out infinite alternate;
+    transition: all 0.3s ease-out;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 12px rgba(var(--v-theme-primary), 0.9))
+        drop-shadow(0 0 20px rgba(var(--v-theme-accent), 0.7));
+    }
+  }
+}
+
+@keyframes logo-glow-pulse {
+  from {
+    filter: drop-shadow(0 0 5px rgba(var(--v-theme-primary), 0.5))
+      drop-shadow(0 0 10px rgba(var(--v-theme-accent), 0.3));
+  }
+  to {
+    filter: drop-shadow(0 0 12px rgba(var(--v-theme-primary), 0.8))
+      drop-shadow(0 0 20px rgba(var(--v-theme-accent), 0.5));
   }
 }
 

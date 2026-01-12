@@ -107,6 +107,7 @@ onMounted(() => {
   const currentTheme = theme.global.name.value
   if (currentTheme.includes('--')) {
     const [name, mode] = currentTheme.split('--')
+    // TODO: fix typescript error
     selectedTheme.value = name
     themeMode.value = mode as 'light' | 'dark'
   }
@@ -115,13 +116,13 @@ onMounted(() => {
 // Handle theme change
 const onThemeChange = (themeName: string) => {
   const newTheme = `${themeName}--${themeMode.value}`
-  theme.global.name.value = newTheme
+  theme.change(newTheme)
 }
 
 // Handle mode change
 const onModeChange = (mode: 'light' | 'dark') => {
   const newTheme = `${selectedTheme.value}--${mode}`
-  theme.global.name.value = newTheme
+  theme.change(newTheme)
 }
 </script>
 

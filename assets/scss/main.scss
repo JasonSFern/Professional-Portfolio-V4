@@ -75,3 +75,36 @@ h6 {
   font-size: 0.8rem !important;
   font-style: italic !important;
 }
+
+.primary-color-c-glow {
+  text-shadow:
+    0 0 10px rgb(var(--v-theme-primary)),
+    0 0 21px rgb(var(--v-theme-primary)),
+    0 0 42px rgb(var(--v-theme-primary));
+}
+
+.primary-color-bg-glow {
+  box-shadow: 0 0 8px 0px rgb(var(--v-theme-primary));
+}
+
+.secondary-color-c-glow {
+  text-shadow:
+    0 0 10px rgb(var(--v-theme-secondary)),
+    0 0 21px rgb(var(--v-theme-secondary)),
+    0 0 42px rgb(var(--v-theme-secondary));
+}
+
+.secondary-color-bg-glow {
+  box-shadow: 0 0 8px 0px rgb(var(--v-theme-secondary));
+}
+
+.accent-color-c-glow {
+  text-shadow:
+    0 0 10px rgb(var(--v-theme-accent)),
+    0 0 21px rgb(var(--v-theme-accent)),
+    0 0 42px rgb(var(--v-theme-accent));
+}
+
+.accent-color-bg-glow {
+  box-shadow: 0 0 8px 0px rgb(var(--v-theme-accent));
+}

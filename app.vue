@@ -4,10 +4,12 @@
       <NuxtRouteAnnouncer />
       <AppHeader />
       <v-main>
-        <NuxtPage :transition="{
-          name: 'page',
-          mode: 'out-in'
-        }" />
+        <NuxtPage
+          :transition="{
+            name: 'page',
+            mode: 'out-in',
+          }"
+        />
       </v-main>
       <AppFooter />
     </v-app>
@@ -15,10 +17,10 @@
 </template>
 
 <script setup lang="ts">
-import { useHead } from '@unhead/vue'
+import { useHead } from '#imports'
 
 useHead({
-  link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+  link: [{ rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
   script: [
     {
       innerHTML: `

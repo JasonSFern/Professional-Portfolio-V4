@@ -75,7 +75,7 @@ export const useThemeSwitch = () => {
 
     // Update Vuetify theme
     const fullThemeName = `${name}--${themeMode}`
-    theme.global.name.value = fullThemeName
+    theme.change(fullThemeName)
 
     // Update localStorage for redundancy (client-side only)
     if (import.meta.client) {

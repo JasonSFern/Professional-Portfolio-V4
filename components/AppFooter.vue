@@ -5,10 +5,11 @@
         <!-- Left Section - Tech Stack Button -->
         <div class="footer-section footer-left">
           <v-btn
-            variant="outlined"
+            variant="text"
             color="primary"
             size="small"
             prepend-icon="mdi-code-braces"
+            class="primary-color-c-glow"
             @click="techDialog = true"
           >
             Built With ❤️ + ☕️
@@ -19,8 +20,13 @@
         <div class="footer-section footer-center">
           <p class="text-body-2">
             © {{ currentYear }}
-            <ColoredText color="primary" :weight="600">Portfolio</ColoredText>
-            . All rights reserved.
+            <ColoredText v-if="profile" color="primary" :weight="600"
+              >{{ profile.firstName }}&nbsp;</ColoredText
+            >
+            <ColoredText v-if="profile" color="accent" :weight="600"
+              >{{ profile.lastName }}.&nbsp;</ColoredText
+            >
+            All rights reserved.
           </p>
         </div>
 
@@ -107,6 +113,13 @@
         </v-card-text>
 
         <v-divider></v-divider>
+        <v-card-text>
+          "All of the images, artwork, text and graphics contained in this portfolio, unless
+          otherwise specified and/or credited, are the copyright of Jason Fernandes. All rights
+          reserved. All other materials are the copyright and/or trademark of the respective owners.
+          All materials featured are offered for informative purposes only and as such are offered
+          on a 'as is' basis."
+        </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -120,13 +133,21 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 
-const techDialog = ref(false)
+// Use profile composable to access global profile data
+const { profile, loading: pending, error } = useProfile()
+
+const techDialog = ref<boolean>(false)
 const currentYear = computed(() => new Date().getFullYear())
 
 const socialLinks = [
   { name: 'GitHub', icon: 'mdi-github', url: 'https://github.com/yourusername' },
   { name: 'LinkedIn', icon: 'mdi-linkedin', url: 'https://linkedin.com/in/yourusername' },
 ]
+
+// TODO: Social link curation, needs seeder update
+// const socialLinks = computed(() => {
+//
+// })
 
 const techStack = [
   {
