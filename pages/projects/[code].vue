@@ -17,10 +17,7 @@
 
     <div v-else-if="project" class="project-detail-page">
       <!-- Breadcrumbs -->
-      <v-breadcrumbs
-        :items="breadcrumbs"
-        class="px-0 mb-4"
-      >
+      <v-breadcrumbs :items="breadcrumbs" class="px-0 mb-4">
         <template v-slot:divider>
           <v-icon>mdi-chevron-right</v-icon>
         </template>
@@ -78,11 +75,7 @@
 
       <!-- Project Content Sections -->
       <div v-if="project.contents && project.contents.length > 0">
-        <v-card
-          v-for="(section, index) in project.contents"
-          :key="index"
-          class="mb-6 pa-6"
-        >
+        <v-card v-for="(section, index) in project.contents" :key="index" class="mb-6 pa-6">
           <MarkdownRenderer :content="section" />
         </v-card>
       </div>
@@ -137,7 +130,8 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onBeforeMount } from 'vue'
+const { switchTheme } = useThemeSwitch()
 
 const route = useRoute()
 const projectCode = route.params.code
@@ -189,6 +183,32 @@ const getLinkIcon = (label) => {
   if (lowerLabel.includes('video')) return 'mdi-video'
   return 'mdi-link'
 }
+
+// Initialize with current theme
+onBeforeMount(() => {
+  const projectTheme = project.value?.displayTheme
+  if (projectTheme) {
+    // Parse the displayTheme string
+    const parts = projectTheme.split('--')
+    const themeName = parts[0]
+    const mode = parts[1] || 'dark' // Default to dark if mode not specified
+
+    switchTheme(themeName, mode)
+  }
+})
+
+// Initialize with current theme
+onMounted(() => {
+  const projectTheme = project.value?.displayTheme
+  if (projectTheme) {
+    // Parse the displayTheme string
+    const parts = projectTheme.split('--')
+    const themeName = parts[0]
+    const mode = parts[1] || 'dark' // Default to dark if mode not specified
+
+    switchTheme(themeName, mode)
+  }
+})
 </script>
 
 <style scoped lang="scss">

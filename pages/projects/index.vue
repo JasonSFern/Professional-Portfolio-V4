@@ -91,7 +91,10 @@
                 {{ getProjectDescription(project) }}
               </div>
 
-              <div v-if="project.skills?.icons && project.skills.icons.length > 0" class="project-skills mb-6">
+              <div
+                v-if="project.skills?.icons && project.skills.icons.length > 0"
+                class="project-skills mb-6"
+              >
                 <v-chip
                   v-for="(skill, idx) in project.skills.icons.slice(0, 6)"
                   :key="idx"
@@ -140,7 +143,11 @@
           <v-icon size="64" color="grey">mdi-folder-open-outline</v-icon>
           <h2 class="mt-4">No Projects Found</h2>
           <p class="text-medium-emphasis">
-            {{ selectedCategory ? `No projects in "${selectedCategory}" category` : 'Check back soon for new projects!' }}
+            {{
+              selectedCategory
+                ? `No projects in "${selectedCategory}" category`
+                : 'Check back soon for new projects!'
+            }}
           </p>
         </div>
       </div>
@@ -152,7 +159,9 @@
         <div class="projects-page">
           <div class="page-header mb-8">
             <h1 class="text-h2 mb-4">Projects</h1>
-            <p class="text-h6 text-medium-emphasis">A collection of my recent work and side projects</p>
+            <p class="text-h6 text-medium-emphasis">
+              A collection of my recent work and side projects
+            </p>
           </div>
 
           <!-- Category Filter for Mobile -->
@@ -270,7 +279,11 @@
             <v-icon size="64" color="grey">mdi-folder-open-outline</v-icon>
             <h2 class="mt-4">No Projects Found</h2>
             <p class="text-medium-emphasis">
-              {{ selectedCategory ? `No projects in "${selectedCategory}" category` : 'Check back soon for new projects!' }}
+              {{
+                selectedCategory
+                  ? `No projects in "${selectedCategory}" category`
+                  : 'Check back soon for new projects!'
+              }}
             </p>
           </div>
         </div>
@@ -280,7 +293,8 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+const { switchTheme } = useThemeSwitch()
 
 // Fetch all projects
 const { data: projects, pending, error } = await useFetch('/api/projects')
@@ -295,7 +309,7 @@ let scrollTimeout = null
 // Get unique categories from projects
 const categories = computed(() => {
   if (!projects.value) return []
-  const cats = [...new Set(projects.value.map(p => p.category).filter(Boolean))]
+  const cats = [...new Set(projects.value.map((p) => p.category).filter(Boolean))]
   return cats.sort()
 })
 
@@ -303,7 +317,7 @@ const categories = computed(() => {
 const filteredProjects = computed(() => {
   if (!projects.value) return []
   if (selectedCategory.value === null) return projects.value
-  return projects.value.filter(p => p.category === selectedCategory.value)
+  return projects.value.filter((p) => p.category === selectedCategory.value)
 })
 
 // Helper to get project title
@@ -327,7 +341,7 @@ const getProjectDescription = (project) => {
       .replace(/\*([^*]+)\*/g, '$1') // Remove italic
       .replace(/!\[.*?\]\(.*?\)/g, '') // Remove images
       .split('\n')
-      .filter(line => line.trim())
+      .filter((line) => line.trim())
       .slice(0, 2)
       .join(' ')
     return plainText.substring(0, 200) + (plainText.length > 200 ? '...' : '')
@@ -351,17 +365,46 @@ const scrollToProject = (index) => {
   const sections = snapContainer.value.querySelectorAll('.project-section')
   if (sections[index]) {
     sections[index].scrollIntoView({ behavior: 'smooth' })
+
+    // Apply theme when clicking navigation squares
+    const targetProject = filteredProjects.value[index]
+    if (targetProject?.displayTheme) {
+      applyProjectTheme(targetProject.displayTheme)
+    }
   }
 }
 
-// Handle scroll to update current project index
+// Handle scroll to update current project index and theme
 const handleScroll = () => {
   if (!snapContainer.value) return
   const container = snapContainer.value
   const scrollTop = container.scrollTop
   const sectionHeight = container.clientHeight
   const newIndex = Math.round(scrollTop / sectionHeight)
-  currentProjectIndex.value = newIndex
+
+  // Only update if index changed
+  if (newIndex !== currentProjectIndex.value) {
+    currentProjectIndex.value = newIndex
+
+    // Switch theme based on current project's displayTheme
+    const currentProject = filteredProjects.value[newIndex]
+    if (currentProject?.displayTheme) {
+      applyProjectTheme(currentProject.displayTheme)
+    }
+  }
+}
+
+// Apply theme from displayTheme string (format: "themeName--mode")
+const applyProjectTheme = (displayTheme) => {
+  if (!displayTheme) return
+
+  // Parse the displayTheme string
+  const parts = displayTheme.split('--')
+  const themeName = parts[0]
+  const mode = parts[1] || 'dark' // Default to dark if mode not specified
+
+  // Use the theme switch hook to apply the theme
+  switchTheme(themeName, mode)
 }
 
 // Handle wheel event for snap scrolling
@@ -405,10 +448,22 @@ const handleCategoryChange = () => {
     snapContainer.value.scrollTo({ top: 0, behavior: 'smooth' })
   }
   currentProjectIndex.value = 0
+
+  // Apply theme of first project in filtered list
+  const firstProject = filteredProjects.value[0]
+  if (firstProject?.displayTheme) {
+    applyProjectTheme(firstProject.displayTheme)
+  }
 }
 
 // Setup observer for category changes and wheel event listener
 onMounted(() => {
+  // Apply initial theme for first project
+  const firstProject = filteredProjects.value[0]
+  if (firstProject?.displayTheme) {
+    applyProjectTheme(firstProject.displayTheme)
+  }
+
   let prevCategory = selectedCategory.value
   const interval = setInterval(() => {
     if (prevCategory !== selectedCategory.value) {

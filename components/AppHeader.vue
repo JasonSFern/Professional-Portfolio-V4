@@ -96,13 +96,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+const { switchTheme } = useThemeSwitch()
 
 // Use profile composable to access global profile data
 const { profile, loading: pending, error } = useProfile()
 
 import { GlowLevel } from '@/types/general'
 
+const route = useRoute()
 const drawer = ref(false)
 const themeModalOpen = ref(false)
 
@@ -116,6 +118,32 @@ const openThemeModal = () => {
   drawer.value = false
   themeModalOpen.value = true
 }
+
+// TODO: For debugging
+// // Log current page when route changes
+// const logCurrentPage = () => {
+//   const pageName = route.name || 'Unknown'
+//   const pagePath = route.path
+//   const pageFullPath = route.fullPath
+
+//   console.log('📍 Current Page:', {
+//     name: pageName,
+//     path: pagePath,
+//     fullPath: pageFullPath,
+//     params: route.params,
+//     query: route.query,
+//   })
+// }
+
+// Watch for route changes and log the current page
+watch(
+  () => route.fullPath,
+  () => {
+    if (!route.fullPath.includes('projects')) switchTheme('cloud', 'dark')
+    console.log('hello')
+  },
+  { immediate: true } // Log on initial load
+)
 </script>
 
 <style scoped lang="scss">
