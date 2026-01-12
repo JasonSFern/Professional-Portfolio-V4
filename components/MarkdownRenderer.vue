@@ -194,6 +194,19 @@ const renderedContent = computed(() => {
   h3,
   h4,
   h5,
+  h6,
+  p,
+  ul,
+  ol,
+  li {
+    color: rgb(var(--v-theme-primary));
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
   h6 {
     margin-top: 1.5rem;
     margin-bottom: 0.5rem;

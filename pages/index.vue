@@ -9,11 +9,6 @@
 
         <MarkdownRenderer :content="fullText" class="mt-2" />
       </v-card>
-
-      <div class="mt-8">
-        <Title title="Theme Controls" size="medium" />
-        <ThemeSelector />
-      </div>
     </div>
   </v-container>
 </template>

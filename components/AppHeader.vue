@@ -23,10 +23,17 @@
           {{ item.label }}
         </NuxtLink>
 
-        <!-- Theme Selector -->
-        <div class="ml-4">
-          <ThemeSelector />
-        </div>
+        <ThemeModeToggle size="compact" />
+
+        <v-btn
+          icon
+          variant="text"
+          class="ml-2"
+          @click="themeModalOpen = true"
+          aria-label="Open theme settings"
+        >
+          <v-icon class="rainbow-text">mdi-palette</v-icon>
+        </v-btn>
       </nav>
 
       <!-- Mobile Menu Button -->
@@ -52,18 +59,27 @@
 
       <v-divider class="my-4"></v-divider>
 
-      <!-- Theme Selector in Mobile -->
-      <v-list-item>
-        <ThemeSelector />
+      <ThemeModeToggle size="full" />
+
+      <!-- Theme Settings Button in Mobile -->
+      <v-list-item @click="openThemeModal">
+        <template #prepend>
+          <v-icon class="rainbow-text">mdi-palette</v-icon>
+        </template>
+        <v-list-item-title>Theme Settings</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
+
+  <!-- Theme Modal -->
+  <ThemeModal v-model="themeModalOpen" />
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
 
 const drawer = ref(false)
+const themeModalOpen = ref(false)
 
 const navItems = [
   { label: 'Home', to: '/', icon: 'mdi-home' },
@@ -71,6 +87,11 @@ const navItems = [
   { label: 'Projects', to: '/projects', icon: 'mdi-briefcase' },
   { label: 'Contact', to: '/contact', icon: 'mdi-email' },
 ]
+
+const openThemeModal = () => {
+  drawer.value = false
+  themeModalOpen.value = true
+}
 </script>
 
 <style scoped lang="scss">
@@ -125,5 +146,22 @@ const navItems = [
       background-color: rgba(var(--v-theme-primary), 0.1);
     }
   }
+}
+
+.rainbow-text {
+  background-image: linear-gradient(
+    to top,
+    purple,
+    purple,
+    blue,
+    green,
+    yellow,
+    orange,
+    red,
+    red
+  ) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  color: transparent !important;
 }
 </style>
