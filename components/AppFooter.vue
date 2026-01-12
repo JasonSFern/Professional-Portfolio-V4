@@ -1,18 +1,9 @@
 <template>
-  <v-footer class="footer" color="surface-variant">
-    <v-container>
+  <v-footer app class="px-3 py-3 footer-wrapper">
+    <div class="d-flex w-100 align-center footer-panel footer-frosted rounded-lg px-3">
       <div class="footer-content">
-        <!-- Left Section - Copyright -->
-        <div class="footer-section">
-          <p class="text-body-2">
-            © {{ currentYear }}
-            <ColoredText color="primary" :weight="600">Portfolio</ColoredText>
-            . All rights reserved.
-          </p>
-        </div>
-
-        <!-- Center Section - Tech Stack Button -->
-        <div class="footer-section footer-center">
+        <!-- Left Section - Tech Stack Button -->
+        <div class="footer-section footer-left">
           <v-btn
             variant="outlined"
             color="primary"
@@ -20,8 +11,17 @@
             prepend-icon="mdi-code-braces"
             @click="techDialog = true"
           >
-            Built With
+            Built With ❤️ + ☕️
           </v-btn>
+        </div>
+
+        <!-- Center Section - Copyright -->
+        <div class="footer-section footer-center">
+          <p class="text-body-2">
+            © {{ currentYear }}
+            <ColoredText color="primary" :weight="600">Portfolio</ColoredText>
+            . All rights reserved.
+          </p>
         </div>
 
         <!-- Right Section - Social Links -->
@@ -38,7 +38,7 @@
           ></v-btn>
         </div>
       </div>
-    </v-container>
+    </div>
 
     <!-- Tech Stack Modal -->
     <v-dialog v-model="techDialog" max-width="800">
@@ -126,7 +126,6 @@ const currentYear = computed(() => new Date().getFullYear())
 const socialLinks = [
   { name: 'GitHub', icon: 'mdi-github', url: 'https://github.com/yourusername' },
   { name: 'LinkedIn', icon: 'mdi-linkedin', url: 'https://linkedin.com/in/yourusername' },
-  { name: 'Twitter', icon: 'mdi-twitter', url: 'https://twitter.com/yourusername' },
 ]
 
 const techStack = [
@@ -137,7 +136,11 @@ const techStack = [
     technologies: [
       { name: 'Nuxt 3', version: '4.2.2', url: 'https://nuxt.com', icon: 'mdi-nuxt' },
       { name: 'Vue 3', version: '3.5.26', url: 'https://vuejs.org', icon: 'mdi-vuejs' },
-      { name: 'TypeScript', url: 'https://www.typescriptlang.org', icon: 'mdi-language-typescript' },
+      {
+        name: 'TypeScript',
+        url: 'https://www.typescriptlang.org',
+        icon: 'mdi-language-typescript',
+      },
     ],
   },
   {
@@ -194,43 +197,82 @@ const techStack = [
 </script>
 
 <style scoped lang="scss">
-.footer {
-  margin-top: auto;
-  border-top: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+.footer-wrapper {
+  box-shadow: none !important;
+  background: transparent !important;
+  width: 100%;
 
-  .footer-content {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: 1rem;
-    align-items: center;
-    padding: 1rem 0;
+  .footer-panel {
+    height: 50px !important;
 
-    @media (max-width: 960px) {
-      grid-template-columns: 1fr;
-      text-align: center;
-      gap: 1rem;
+    @media screen and (max-width: 800px) {
+      height: auto !important;
     }
-  }
 
-  .footer-section {
-    display: flex;
-    align-items: center;
-  }
+    &.footer-frosted {
+      background-color: rgba(152, 151, 151, 0.2) !important;
+      backdrop-filter: blur(20px);
+      box-shadow: 0.5px 0.5px 1px 0px rgba(255, 255, 255, 0.32) inset,
+        -0.5px -0.5px 1px 0px rgba(255, 255, 255, 0.1) inset, 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+      border-radius: 20px;
+      border-width: 0;
+      border-style: solid;
+      border-color: #49549539;
+      display: block;
+      transition: 0.3s ease-out;
+      position: relative;
+    }
 
-  .footer-center {
-    justify-content: center;
-  }
+    .footer-content {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem 0;
+      width: 100%;
 
-  .footer-right {
-    justify-content: flex-end;
-    gap: 0.5rem;
+      @media (max-width: 960px) {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 1rem;
+      }
+    }
 
-    @media (max-width: 960px) {
+    .footer-section {
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-center {
       justify-content: center;
+    }
+
+    .footer-right {
+      justify-content: flex-end;
+      gap: 0.5rem;
+
+      @media (max-width: 960px) {
+        justify-content: center;
+      }
+    }
+
+    .footer-left {
+      justify-content: flex-start;
+      gap: 0.5rem;
+
+      @media (max-width: 960px) {
+        justify-content: center;
+      }
     }
   }
 }
 
+//
+//
+//
+//
+// TODO: For the Modal
 .tech-intro {
   background-color: rgba(var(--v-theme-primary), 0.05);
   padding: 1rem;

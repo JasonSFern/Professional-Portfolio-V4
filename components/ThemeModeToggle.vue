@@ -7,8 +7,8 @@
         v-bind="props"
         @click="onModeChange(themeMode == 'light' ? 'dark' : 'light')"
       >
-        <v-icon className="">{{
-          themeMode == 'light' ? 'mdi-white-balance-sunny' : 'mdi-moon-waning-crescent'
+        <v-icon :class="themeMode == 'light' ? 'sun-glow' : 'moon-glow'">{{
+          themeMode == 'light' ? 'mdi-white-balance-sunny' : 'mdi-moon-waxing-crescent'
         }}</v-icon>
       </v-btn>
     </template>
@@ -74,5 +74,14 @@ const onModeChange = (mode: 'light' | 'dark') => {
 <style scoped lang="scss">
 .theme-selector-card {
   margin: 1rem 0;
+}
+
+.sun-glow {
+  text-shadow: 0 0 10px #face33, 0 0 21px #face33, 0 0 42px #face33;
+  color: #face33 !important;
+}
+
+.moon-glow {
+  text-shadow: 0 0 10px #ffffff, 0 0 21px #ffffff, 0 0 42px #ffffff;
 }
 </style>

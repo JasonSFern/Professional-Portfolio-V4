@@ -1,14 +1,33 @@
 <template>
-  <v-app-bar :elevation="2" color="surface">
-    <v-container class="d-flex align-center">
+  <v-app-bar :elevation="elevation" app class="px-3 py-2 header-wrapper">
+    <div class="d-flex w-100 align-center header-panel frosted rounded-lg px-3">
       <!-- Logo/Brand -->
       <NuxtLink to="/" class="brand-link">
         <div class="brand">
-          <ColoredText color="accent" :weight="800" class="brand-text">Portfolio</ColoredText>
+          <p class="desktop-nav d-none d-md-flex">
+            <ColoredText color="primary" :weight="400" class="brand-text uppercase"
+              >Jason
+            </ColoredText>
+          </p>
+          <p class="desktop-nav d-none d-md-flex">
+            <ColoredText
+              color="accent"
+              :weight="400"
+              class="brand-text uppercase"
+              :glow="GlowLevel.Medium"
+              >Fernandes</ColoredText
+            >
+          </p>
+          <v-img
+            src="/logo.svg"
+            alt="logo"
+            contain
+            max-width="40"
+            max-height="40"
+            class="w-[30px] h-[30px] mx-md-4"
+          ></v-img>
         </div>
       </NuxtLink>
-
-      <v-spacer></v-spacer>
 
       <!-- Desktop Navigation -->
       <nav class="desktop-nav d-none d-md-flex align-center">
@@ -22,23 +41,24 @@
           <v-icon v-if="item.icon" size="small" class="mr-1">{{ item.icon }}</v-icon>
           {{ item.label }}
         </NuxtLink>
-
-        <ThemeModeToggle size="compact" />
-
-        <v-btn
-          icon
-          variant="text"
-          class="ml-2"
-          @click="themeModalOpen = true"
-          aria-label="Open theme settings"
-        >
-          <v-icon class="rainbow-text">mdi-palette</v-icon>
-        </v-btn>
       </nav>
 
+      <v-spacer></v-spacer>
+
+      <ThemeModeToggle size="compact" />
+
+      <v-btn
+        icon
+        variant="text"
+        class="ml-2"
+        @click="themeModalOpen = true"
+        aria-label="Open theme settings"
+      >
+        <v-icon class="rainbow-text">mdi-palette</v-icon>
+      </v-btn>
       <!-- Mobile Menu Button -->
       <v-app-bar-nav-icon class="d-md-none" @click="drawer = !drawer"></v-app-bar-nav-icon>
-    </v-container>
+    </div>
   </v-app-bar>
 
   <!-- Mobile Navigation Drawer -->
@@ -78,6 +98,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+import { GlowLevel } from '@/types/general'
+
 const drawer = ref(false)
 const themeModalOpen = ref(false)
 
@@ -95,6 +117,41 @@ const openThemeModal = () => {
 </script>
 
 <style scoped lang="scss">
+.header-wrapper {
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.header-panel {
+  height: 56px !important;
+}
+
+.frosted {
+  background-color: rgba(152, 151, 151, 0.2) !important;
+  backdrop-filter: blur(20px);
+  box-shadow: 0.5px 0.5px 1px 0px rgba(255, 255, 255, 0.32) inset,
+    -0.5px -0.5px 1px 0px rgba(255, 255, 255, 0.1) inset, 0px 1px 2px 0px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  border-radius: 20px;
+  border-width: 0;
+  border-style: solid;
+  border-color: #49549539;
+  display: block;
+  transition: 0.3s ease-out;
+  position: relative;
+}
+
+.nav-link .bold a {
+  font-size: 0.9rem !important;
+  font-family: 'Avenir-Black', sans-serif;
+  line-height: 1 !important;
+  display: flex;
+  align-items: center;
+}
+
+//
+//
+//
 .brand-link {
   text-decoration: none;
   color: inherit;
@@ -115,14 +172,16 @@ const openThemeModal = () => {
   gap: 0.5rem;
 
   .nav-link {
+    font-size: 0.8rem !important;
+    font-family: 'Avenir', sans-serif;
+    line-height: 1 !important;
     display: flex;
     align-items: center;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    color: rgb(var(--v-theme-on-surface));
-    border-radius: 8px;
     transition: all 0.2s ease;
-    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    text-transform: uppercase;
 
     &:hover {
       background-color: rgba(var(--v-theme-primary), 0.1);
@@ -130,7 +189,6 @@ const openThemeModal = () => {
     }
 
     &--active {
-      background-color: rgba(var(--v-theme-primary), 0.15);
       color: rgb(var(--v-theme-primary));
       font-weight: 600;
     }
