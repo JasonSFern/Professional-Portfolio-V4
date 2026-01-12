@@ -5,6 +5,10 @@ export default defineNuxtConfig({
 
   components: true,
 
+  app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
+  },
+
   modules: ['vuetify-nuxt-module'],
 
   vuetify: {

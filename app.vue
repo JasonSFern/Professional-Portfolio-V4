@@ -4,7 +4,10 @@
       <NuxtRouteAnnouncer />
       <AppHeader />
       <v-main>
-        <NuxtPage />
+        <NuxtPage :transition="{
+          name: 'page',
+          mode: 'out-in'
+        }" />
       </v-main>
       <AppFooter />
     </v-app>
@@ -21,4 +24,20 @@ useHead({
 
 <style>
 @import 'tailwindcss';
+
+/* Page Transitions */
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.3s ease;
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
 </style>
